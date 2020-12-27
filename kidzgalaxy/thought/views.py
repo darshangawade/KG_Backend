@@ -14,13 +14,16 @@ from .models import Thought
 def index(request):
     thought=Thought.objects.all()
     showtime = strftime("%d-%b", gmtime())
+    thoughts=list(thought)
+    print(thoughts)
 
     post_list = serializers.serialize('json', thought)
     # print(post_list)
     # return JsonResponse(post_list,safe=False)
-    #return JsonResponse(list(Thought.objects.all().values()), safe=False)
+    #return JsonResponse({'showtime':showtime,'thought':list(Thought.objects.all().values())},safe=False)
 
-    #return JsonResponse(json.dumps({'thought':thought,'showtime':showtime}))
+
+    #return JsonResponse({'thought':thought,'showtime':showtime},safe=True)
     # return HttpResponse({'thought':thought,'showtime':showtime}, mimetype="application/json")
     return render(request,'index.html',{'thought':thought,'showtime':showtime})
 
